@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.APIAgenda.agendaback.entity.Finca;
@@ -33,12 +34,12 @@ public class FincaController {
 	}
 	
 	@PutMapping(value="/AGD_FINCA/{id}")
-	public ResponseEntity<?> actualizarFinca(@PathParam(value = "id")Long id, @RequestBody Finca finca){
+	public ResponseEntity<?> actualizarFinca(@PathVariable(value = "id")Long id, @RequestBody Finca finca){
 		return new ResponseEntity<Finca>(service.actualizarFinca(finca, id), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/list/{userId}")
-	public ResponseEntity<?> obtenerTodasFincasByUserId(@PathVariable(name = "userId") Long userId){
+	@GetMapping(value = "/list")
+	public ResponseEntity<?> obtenerTodasFincasByUserId(@RequestParam Long userId){
 		return new ResponseEntity<List<Finca>>(service.getAllFincas(userId), HttpStatus.OK);
 	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.APIAgenda.agendaback.entity.Producto;
@@ -34,18 +35,18 @@ public class ProductController {
 	}
 	
 	@PutMapping(value="/AGD_Producto/{id}")
-	public ResponseEntity<?> actualizarProducto(@PathParam(value = "id") Long id, @RequestBody Producto producto){
+	public ResponseEntity<?> actualizarProducto(@PathVariable(value = "id") Long id, @RequestBody Producto producto){
 		return new ResponseEntity<Producto>(service.actualizarProducto(producto, id), HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/AGD_Producto/{idUser}")
-	public ResponseEntity<?> obtenerTodosProductosUser(@PathParam(value="idUser")Long iduser){
+	public ResponseEntity<?> obtenerTodosProductosUser(@PathVariable(value="idUser")Long iduser){
 		return new ResponseEntity<List<Producto>>(service.getAllProductoByUserId(iduser), HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = "/AGD_Producto/{producto_id}")
-	public ResponseEntity<?> deleteProducto(@PathVariable(name = "producto_id") Long id){
-		service.deleteProducto(id);
+	@DeleteMapping(value = "/AGD_Producto")
+	public ResponseEntity<?> deleteProducto(@RequestParam(name = "producto_id") Long producto_id){
+		service.deleteProducto(producto_id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 

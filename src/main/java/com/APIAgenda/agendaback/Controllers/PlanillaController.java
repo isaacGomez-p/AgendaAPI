@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.APIAgenda.agendaback.entity.NumeroPlanilla;
@@ -35,7 +36,7 @@ public class PlanillaController {
 	}
 	
 	@PutMapping(value="/list/{id}")//TODO revisar nombre 
-	public ResponseEntity<?> putPlanilla(@PathParam(value = "id") Long id, @RequestBody Planilla planilla){
+	public ResponseEntity<?> putPlanilla(@PathVariable(value = "id") Long id, @RequestBody Planilla planilla){
 		return new ResponseEntity<Planilla>(service.actualizarPlanilla(planilla, id), HttpStatus.OK);
 	}
 	
@@ -45,18 +46,18 @@ public class PlanillaController {
 	}
 	
 	@GetMapping("/AGD_N_Planilla/{idUser}")
-	public ResponseEntity<?> obtenerPlanillasByUser(@PathParam(value = "idUser") Long idUser){
+	public ResponseEntity<?> obtenerPlanillasByUser(@PathVariable(value = "idUser") Long idUser){
 		return new ResponseEntity<List<NumeroPlanilla>>(service.getAllNumerosPlanillaByUser(idUser), HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/AGD_Planilla_de_aplicacion/{id}")
-	public ResponseEntity<?> obtenerPlanillasById(@PathParam(value="id") Long id){
+	public ResponseEntity<?> obtenerPlanillasById(@PathVariable(value="id") Long id){
 		return new ResponseEntity<List<Planilla>>(service.getAllPlanillas(id), HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value="/AGD_Planilla_de_aplicacion/{planilla_id}")
-	public ResponseEntity<?> borrarPlanilla(@PathVariable(name = "planilla_id") Long idPlanilla){
-		service.deletePlanilla(idPlanilla);
+	@DeleteMapping(value="/AGD_Planilla_de_aplicacion")
+	public ResponseEntity<?> borrarPlanilla(@RequestParam String planilla_id){
+		service.deletePlanilla(Long.parseLong(planilla_id));
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

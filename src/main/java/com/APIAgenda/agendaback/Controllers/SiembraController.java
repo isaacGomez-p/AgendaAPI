@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.APIAgenda.agendaback.entity.Siembra;
@@ -33,13 +34,13 @@ public class SiembraController {
 	}
 	
 	@GetMapping(value="/AGD_Plano_de_siembra/{idFinca}")
-	public ResponseEntity<?> getAllSiembrasFinca(@PathParam(value="idFinca") Long idFinca){
+	public ResponseEntity<?> getAllSiembrasFinca(@PathVariable(value="idFinca") Long idFinca){
 		return new ResponseEntity<List<Siembra>>(service.getSiembraByIdFinca(idFinca), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value="/AGD_Plano_de_siembra")
-	public ResponseEntity<?> deleteSiembra(@PathVariable(name = "plano_id") Long idSiembra){
-		service.deleteSiembra(idSiembra);
+	public ResponseEntity<?> deleteSiembra(@RequestParam(name = "plano_id") Long plano_id){
+		service.deleteSiembra(plano_id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

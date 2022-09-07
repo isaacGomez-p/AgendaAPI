@@ -66,11 +66,13 @@ public class PlanillaService {
 	}
 	
 	public void deletePlanilla(Long id) {
+		System.out.println(id);
 		Planilla planilla = planillaRepo.findById(id).get();
 		planillaRepo.delete(planilla);
 	}
 	
 	public List<Planilla> getAllPlanillas(Long id){
+		System.out.println("ALL PLANILLAS POR ID_----------------" + id);
 		return planillaRepo.findAll();
 	}
 }

@@ -23,6 +23,7 @@ public class SiembraService {
 	}
 	
 	public void deleteSiembra(Long idSiembra) {
+		System.out.println("ID SIEMBRA DELETE ____ " + idSiembra);
 		Siembra siembra = siembraRepo.findById(idSiembra).get();
 		siembraRepo.delete(siembra);
 	}

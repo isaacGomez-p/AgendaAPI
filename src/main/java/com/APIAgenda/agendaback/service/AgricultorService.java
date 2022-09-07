@@ -24,6 +24,7 @@ public class AgricultorService {
 	}
 	
 	public User getUserById(Long id) {
+		System.out.println("GET USER BY ID:--------- " + id);
 		return userRepo.findById(id).get();
 	}
 	
